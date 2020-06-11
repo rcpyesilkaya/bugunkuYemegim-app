@@ -4,6 +4,7 @@ import com.recepyesilkaya.bugunkuyemegim.model.yemekModel;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -16,7 +17,10 @@ public interface YemekAPI {
     Call<List<yemekModel>> getData();*/
 
     @GET("yemekapp/yemekler.json")
-    Call<List<yemekModel>> getData();
+    Observable<List<yemekModel>> getData();
+
+
+    //Call<List<yemekModel>> getData();
 
 
 }

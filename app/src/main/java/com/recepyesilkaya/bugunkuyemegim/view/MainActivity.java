@@ -32,14 +32,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     private AppBarConfiguration mAppBarConfiguration;
 
-    //https://ibrahimekinci.com/yemekapp/yemekler.json
-    //https://github.com/rcpyesilkaya/Yemekler/blob/master/yemekler.json
-
-    ArrayList<yemekModel> yemekModels;
-    private String baseURL = "https://ibrahimekinci.com/";
-    Retrofit retrofit;
 
 
     @Override
@@ -63,47 +59,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-        //Retrofit && JSON
 
-        Gson gson = new GsonBuilder().setLenient().create();
-        retrofit = new Retrofit.Builder()
-                .baseUrl(baseURL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        //JSON verilerini çekeceğimiz metodu çağırıyoruz
-        loadData();
     }
 
-    private void loadData() {
 
-        YemekAPI yemekAPI = retrofit.create(YemekAPI.class);
-        Call<List<yemekModel>> call = yemekAPI.getData();
-
-        call.enqueue(new Callback<List<yemekModel>>() {
-            @Override
-            public void onResponse(Call<List<yemekModel>> call, Response<List<yemekModel>> response) {
-
-                if (response.isSuccessful()){
-
-                    List<yemekModel> responseList = response.body();
-                    yemekModels = new ArrayList<>(responseList);
-
-
-                    //Çekilen Veriler Log da yazdırılıyor
-                    for(yemekModel s:yemekModels){
-                       System.out.println(s.toString());
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<yemekModel>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
