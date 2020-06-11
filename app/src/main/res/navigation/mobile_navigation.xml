@@ -13,31 +13,31 @@
 
     <fragment
         android:id="@+id/nav_anayemek"
-        android:name="com.recepyesilkaya.bugunkuyemegim.ui.gallery.GalleryFragment"
+        android:name="com.recepyesilkaya.bugunkuyemegim.ui.anaYemek.AnaYemekFragment"
         android:label="@string/menu_anayemek"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_anayemek" />
 
     <fragment
         android:id="@+id/nav_pilav"
-        android:name="com.recepyesilkaya.bugunkuyemegim.ui.slideshow.SlideshowFragment"
+        android:name="com.recepyesilkaya.bugunkuyemegim.ui.pilav.PilavFragment"
         android:label="@string/menu_pilav"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_pilav" />
 
     <fragment
         android:id="@+id/nav_corba"
-        android:name="com.recepyesilkaya.bugunkuyemegim.ui.tools.ToolsFragment"
+        android:name="com.recepyesilkaya.bugunkuyemegim.ui.corba.CorbaFragment"
         android:label="@string/menu_corba"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_corba" />
 
     <fragment
         android:id="@+id/nav_salata"
-        android:name="com.recepyesilkaya.bugunkuyemegim.ui.share.ShareFragment"
+        android:name="com.recepyesilkaya.bugunkuyemegim.ui.salata.SalataFragment"
         android:label="@string/menu_salata"
-        tools:layout="@layout/fragment_share" />
+        tools:layout="@layout/fragment_salata" />
 
     <fragment
         android:id="@+id/nav_tatli"
-        android:name="com.recepyesilkaya.bugunkuyemegim.ui.send.SendFragment"
+        android:name="com.recepyesilkaya.bugunkuyemegim.ui.tatli.TatliFragment"
         android:label="@string/menu_tatli"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/fragment_tatli" />
 </navigation>

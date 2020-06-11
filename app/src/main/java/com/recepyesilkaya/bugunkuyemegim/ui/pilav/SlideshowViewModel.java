@@ -1,4 +1,4 @@
-package com.recepyesilkaya.bugunkuyemegim.ui.slideshow;
+package com.recepyesilkaya.bugunkuyemegim.ui.pilav;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

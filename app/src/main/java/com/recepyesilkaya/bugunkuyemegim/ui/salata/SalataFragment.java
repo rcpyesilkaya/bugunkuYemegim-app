@@ -1,4 +1,4 @@
-package com.recepyesilkaya.bugunkuyemegim.ui.share;
+package com.recepyesilkaya.bugunkuyemegim.ui.salata;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.recepyesilkaya.bugunkuyemegim.R;
 
-public class ShareFragment extends Fragment {
+public class SalataFragment extends Fragment {
 
     private ShareViewModel shareViewModel;
 
@@ -22,7 +22,7 @@ public class ShareFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         shareViewModel =
                 ViewModelProviders.of(this).get(ShareViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_share, container, false);
+        View root = inflater.inflate(R.layout.fragment_salata, container, false);
         final TextView textView = root.findViewById(R.id.text_share);
         shareViewModel.getText().observe(this, new Observer<String>() {
             @Override

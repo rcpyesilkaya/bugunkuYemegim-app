@@ -1,4 +1,4 @@
-package com.recepyesilkaya.bugunkuyemegim.ui.share;
+package com.recepyesilkaya.bugunkuyemegim.ui.salata;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
