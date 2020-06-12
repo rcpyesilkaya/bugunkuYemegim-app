@@ -97,9 +97,43 @@ public class AnaYemekFragment extends Fragment {
 
         yemekModels = new ArrayList<>(yemekList);//cryptoModels ArrayList'imize responList deki değerleri kaydediyoruz.
 
+
+        //kategori kontrolü yapıyoruz  ve ilgili bilgileri yemekDizi de tutuyoruz
+        int urunSayisi=0;
+        String kategori="anaYemek";
+
+        for (yemekModel s:yemekList) {
+            System.out.println(s.yemek_adi);
+            System.out.println(s.yemek_id);
+            System.out.println(s.yemek_tur);
+            if (kategori.equals(s.yemek_tur)){
+                System.out.println(s.yemek_tur);
+                urunSayisi++;
+            }
+        }
+
+        String[][] yemekDizi = new String[urunSayisi--][9];
+
+        int sira=0;
+        for (yemekModel s:yemekList) {
+            if (kategori.equals(s.yemek_tur)){
+                yemekDizi[sira][0]=s.getYemek_id();
+                yemekDizi[sira][1]=s.getYemek_adi();
+                yemekDizi[sira][2]=s.getYemek_aciklama();
+                yemekDizi[sira][3]=s.getYemek_tur();
+                yemekDizi[sira][4]=s.getYemek_pisirme_suresi();
+                yemekDizi[sira][5]=s.getYemek_kisi_sayisi();
+                yemekDizi[sira][6]=s.getYemek_video();
+                yemekDizi[sira][7]=s.getYemek_resim();
+                yemekDizi[sira][8]=s.getYemek_malzeme();
+                sira++;
+            }
+        }
+
+
         //RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewAdapter = new RecyclerViewAdapter(yemekModels);
+        recyclerViewAdapter = new RecyclerViewAdapter(yemekModels,yemekDizi);
         recyclerView.setAdapter(recyclerViewAdapter);
 
     }
