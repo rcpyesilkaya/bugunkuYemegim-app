@@ -1,5 +1,6 @@
 package com.recepyesilkaya.bugunkuyemegim.adapter;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.recepyesilkaya.bugunkuyemegim.R;
 import com.recepyesilkaya.bugunkuyemegim.model.yemekModel;
+import com.recepyesilkaya.bugunkuyemegim.view.DetayActivity;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -45,7 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RowHolder holder, int position) {
 
 
-        holder.bind(yemekList.get(position), position);
+        holder.bind(yemekList.get(position), position,holder);
 
 
     }
@@ -67,7 +70,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
 
-        public void bind(yemekModel yemek_Model, Integer position) {
+        public void bind(yemekModel yemek_Model, Integer position,RowHolder holder) {
 
 
             System.out.println(yemek_Model.getYemek_resim());
@@ -85,11 +88,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             txt_yemekad.setText(yemekDizi[diziSira%yemekDizi.length][1]);
             txt_sure.setText(yemekDizi[diziSira%yemekDizi.length][4]);
             txt_kisiSayisi.setText(yemekDizi[diziSira%yemekDizi.length][5]);
+            Picasso.get().load(yemekDizi[diziSira%yemekDizi.length][7]).into(img_yemekResim);
 
 
             diziSira++;
 
-            //img_yemekResim.setText(yemek_Model.getYemek_adi());
+            img_yemekResim.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(holder.itemView.getContext(), DetayActivity.class);
+
+                    intent.putExtra("yemekAd", yemekDizi[position][1]);
+                    intent.putExtra("yemekAciklama", yemekDizi[position][2]);
+                    intent.putExtra("yemekTur", yemekDizi[position][3]);
+                    intent.putExtra("yemekSure", yemekDizi[position][4]);
+                    intent.putExtra("kisiSayisi", yemekDizi[position][5]);
+                    intent.putExtra("video", yemekDizi[position][6]);
+                    intent.putExtra("resim", yemekDizi[position][7]);
+                    intent.putExtra("malzeme", yemekDizi[position][8]);
+                    intent.putExtra("id", position);
+
+                    holder.itemView.getContext().startActivity(intent);
+                }
+            });
+
 
 
         }
