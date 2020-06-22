@@ -13,6 +13,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.DetayActivity"
             android:parentActivityName=".view.MainActivity"></activity>
+        <activity android:name=".view.SearchActivity"
+            android:parentActivityName=".view.MainActivity"></activity>
         <activity
             android:name=".view.MainActivity"
             android:label="Bugünkü Yemeğim"

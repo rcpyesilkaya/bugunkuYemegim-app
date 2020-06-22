@@ -114,7 +114,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/arsenal"
                         android:text="TextView"
-                        android:textColor="@color/colorYellow"
+                        android:textColor="@color/colorMenu"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -160,7 +160,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/arsenal"
                         android:text="TextView"
-                        android:textColor="@color/colorYellow"
+                        android:textColor="@color/colorMenu"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>

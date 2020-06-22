@@ -13,4 +13,8 @@
     <string name="menu_corba">Çorba</string>
     <string name="menu_salata">Salata</string>
     <string name="menu_tatli">Tatlı</string>
+
+    <string name="speech_prompt">Bir şeyler söyleyin</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
+    <string name="tap_on_mic">Tap on mic to speak</string>
 </resources>
