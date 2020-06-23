@@ -100,11 +100,7 @@ public class CorbaFragment extends Fragment {
         String kategori = "corba";
 
         for (yemekModel s : yemekList) {
-            System.out.println(s.yemek_adi);
-            System.out.println(s.yemek_id);
-            System.out.println(s.yemek_tur);
             if (kategori.equals(s.yemek_tur)) {
-                System.out.println(s.yemek_tur);
                 urunSayisi++;
             }
         }

@@ -78,55 +78,48 @@ public class AnaYemekFragment extends Fragment {
 
         YemekAPI yemekAPI = retrofit.create(YemekAPI.class);
 
-        compositeDisposable=new CompositeDisposable();
+        compositeDisposable = new CompositeDisposable();
 
-       compositeDisposable.add(yemekAPI.getData()
-               //Observable sonucu yayınlanacak olacak işlemin hangi threadde çalışması gerektiğini belirtiyoruz
-               .subscribeOn(Schedulers.io())
-               //Subsriber hangi thread’de dinlemesi gerektiğini belirtiyoruz
-               .observeOn(AndroidSchedulers.mainThread())
-               //subscribe, Observable’a bir abone, abone olduğunda gerçekleştirilecek eylemi tanımlayan bir arabirimdir.
-               //Abone olma yöntemi yalnızca bir Observer Observable’e abone olduğunda çalışır.
-               .subscribe(this::handleResponse));
+        compositeDisposable.add(yemekAPI.getData()
+                //Observable sonucu yayınlanacak olacak işlemin hangi threadde çalışması gerektiğini belirtiyoruz
+                .subscribeOn(Schedulers.io())
+                //Subsriber hangi thread’de dinlemesi gerektiğini belirtiyoruz
+                .observeOn(AndroidSchedulers.mainThread())
+                //subscribe, Observable’a bir abone, abone olduğunda gerçekleştirilecek eylemi tanımlayan bir arabirimdir.
+                //Abone olma yöntemi yalnızca bir Observer Observable’e abone olduğunda çalışır.
+                .subscribe(this::handleResponse));
     }
 
 
-    private void handleResponse(List<yemekModel> yemekList){
+    private void handleResponse(List<yemekModel> yemekList) {
 
         yemekModels = new ArrayList<>(yemekList);//cryptoModels ArrayList'imize responList deki değerleri kaydediyoruz.
 
 
         //kategori kontrolü yapıyoruz  ve ilgili bilgileri yemekDizi de tutuyoruz
-        int urunSayisi=0;
-        String kategori="anaYemek";
+        int urunSayisi = 0;
+        String kategori = "anaYemek";
 
-        for (yemekModel s:yemekList) {
-            System.out.println(s.yemek_adi);
-            System.out.println(s.yemek_id);
-            System.out.println(s.yemek_tur);
-            if (kategori.equals(s.yemek_tur)){
-                System.out.println(s.yemek_tur);
+        for (yemekModel s : yemekList) {
+            if (kategori.equals(s.yemek_tur)) {
                 urunSayisi++;
             }
         }
 
         String[][] yemekDizi = new String[urunSayisi--][9];
 
-        int sira=0;
-        for (yemekModel s:yemekList) {
-            if (kategori.equals(s.yemek_tur)){
-
-
-
-                yemekDizi[sira][0]=s.getYemek_id();
-                yemekDizi[sira][1]=s.getYemek_adi();
-                yemekDizi[sira][2]=s.getYemek_aciklama();
-                yemekDizi[sira][3]=s.getYemek_tur();
-                yemekDizi[sira][4]=s.getYemek_pisirme_suresi();
-                yemekDizi[sira][5]=s.getYemek_kisi_sayisi();
-                yemekDizi[sira][6]=s.getYemek_video();
-                yemekDizi[sira][7]=s.getYemek_resim();
-                yemekDizi[sira][8]=s.getYemek_malzeme();
+        int sira = 0;
+        for (yemekModel s : yemekList) {
+            if (kategori.equals(s.yemek_tur)) {
+                yemekDizi[sira][0] = s.getYemek_id();
+                yemekDizi[sira][1] = s.getYemek_adi();
+                yemekDizi[sira][2] = s.getYemek_aciklama();
+                yemekDizi[sira][3] = s.getYemek_tur();
+                yemekDizi[sira][4] = s.getYemek_pisirme_suresi();
+                yemekDizi[sira][5] = s.getYemek_kisi_sayisi();
+                yemekDizi[sira][6] = s.getYemek_video();
+                yemekDizi[sira][7] = s.getYemek_resim();
+                yemekDizi[sira][8] = s.getYemek_malzeme();
                 sira++;
             }
         }
@@ -134,7 +127,7 @@ public class AnaYemekFragment extends Fragment {
 
         //RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewAdapter = new RecyclerViewAdapter(yemekModels,yemekDizi);
+        recyclerViewAdapter = new RecyclerViewAdapter(yemekModels, yemekDizi);
         recyclerView.setAdapter(recyclerViewAdapter);
 
     }

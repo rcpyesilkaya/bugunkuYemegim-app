@@ -35,7 +35,7 @@ public class DetayActivity extends AppCompatActivity {
         video = (String) i.getSerializableExtra("video");
         String resim = (String) i.getSerializableExtra("resim");
         String malzeme = (String) i.getSerializableExtra("malzeme");
-        int position = (int) i.getSerializableExtra("id");
+        String position =(String)  i.getSerializableExtra("id");
 
 
         txt_sure = findViewById(R.id.txt_sure);

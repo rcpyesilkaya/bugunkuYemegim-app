@@ -116,15 +116,9 @@ public class SearchActivity extends AppCompatActivity {
         //kategori kontrolü yapıyoruz  ve ilgili bilgileri yemekDizi de tutuyoruz
         int urunSayisi = 0;
 
-
+        System.out.println("kelime : "+ kelime.toLowerCase());
         for (yemekModel s : yemekList) {
-            System.out.println(s.yemek_adi);
-            System.out.println(s.yemek_id);
-            System.out.println(s.yemek_tur);
-
-            if (kelime.contains(s.yemek_adi.toLowerCase()) || kelime.contains(s.yemek_tur.toLowerCase())) {
-                System.out.println("Yemek adı bulundu " + kelime);
-                System.out.println(s.yemek_tur);
+            if (kelime.toLowerCase().contains(s.yemek_adi.toLowerCase()) || kelime.toLowerCase().contains(s.yemek_tur.toLowerCase())) {
                 urunSayisi++;
             }
         }
@@ -145,7 +139,7 @@ public class SearchActivity extends AppCompatActivity {
         //Kullanıcının arama işleminde önceliği yemek adına verdik,daha sonra kategoriye göre arama işlemi gerçekleştiriliyor
         int sira = 0;
         for (yemekModel s : yemekList) {
-            if (kelime.contains(s.yemek_adi.toLowerCase())) {
+            if (kelime.toLowerCase().contains(s.yemek_adi.toLowerCase())) {
 
                 yemekDizi[sira][0] = s.getYemek_id();
                 yemekDizi[sira][1] = s.getYemek_adi();

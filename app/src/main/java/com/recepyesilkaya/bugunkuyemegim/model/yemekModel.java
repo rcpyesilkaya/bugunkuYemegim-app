@@ -33,6 +33,18 @@ public class yemekModel {
     @SerializedName("yemek_malzeme")
     public String yemek_malzeme;
 
+    public yemekModel(String yemek_id, String yemek_adi, String yemek_aciklama, String yemek_tur, String yemek_pisirme_suresi, String yemek_kisi_sayisi, String yemek_video, String yemek_resim, String yemek_malzeme) {
+        this.yemek_id = yemek_id;
+        this.yemek_adi = yemek_adi;
+        this.yemek_aciklama = yemek_aciklama;
+        this.yemek_tur = yemek_tur;
+        this.yemek_pisirme_suresi = yemek_pisirme_suresi;
+        this.yemek_kisi_sayisi = yemek_kisi_sayisi;
+        this.yemek_video = yemek_video;
+        this.yemek_resim = yemek_resim;
+        this.yemek_malzeme = yemek_malzeme;
+    }
+
     @Override
     public String toString() {
         return "yemekModel{" +

@@ -106,7 +106,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     intent.putExtra("video", yemekDizi[position][6]);
                     intent.putExtra("resim", yemekDizi[position][7]);
                     intent.putExtra("malzeme", yemekDizi[position][8]);
-                    intent.putExtra("id", position);
+                    intent.putExtra("id", yemekDizi[position][0]);
 
                     holder.itemView.getContext().startActivity(intent);
                 }
