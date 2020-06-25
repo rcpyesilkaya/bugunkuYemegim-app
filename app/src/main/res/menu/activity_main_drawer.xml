@@ -7,7 +7,7 @@
         <item
             android:id="@+id/nav_anasayfa"
             android:icon="@drawable/icon_anasayfa"
-            android:title="@string/menu_anasayfa"/>
+            android:title="@string/menu_anasayfa" />
         <item
             android:id="@+id/nav_anayemek"
             android:icon="@drawable/icon_anayemek"
@@ -28,8 +28,11 @@
             android:id="@+id/nav_tatli"
             android:icon="@drawable/icon_tatli"
             android:title="@string/menu_tatli" />
+        <item
+            android:id="@+id/nav_favori"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/menu_favori" />
     </group>
-
 
 
 </menu>

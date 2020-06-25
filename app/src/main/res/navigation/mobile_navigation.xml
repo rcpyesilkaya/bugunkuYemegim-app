@@ -40,4 +40,9 @@
         android:name="com.recepyesilkaya.bugunkuyemegim.ui.tatli.TatliFragment"
         android:label="@string/menu_tatli"
         tools:layout="@layout/fragment_tatli" />
+    <fragment
+        android:id="@+id/nav_favori"
+        android:name="com.recepyesilkaya.bugunkuyemegim.ui.favori.FavoriFragment"
+        android:label="@string/menu_favori"
+        tools:layout="@layout/fragment_favori" />
 </navigation>

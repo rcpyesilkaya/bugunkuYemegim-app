@@ -8,80 +8,39 @@
     android:paddingTop="10dp"
     android:paddingBottom="15dp">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="20dp">
 
-        <ImageView
-            android:id="@+id/imageView3"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            app:srcCompat="@drawable/shape" />
-
-        <TextView
-            android:id="@+id/txt_yemekAdi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/arsenal"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textColor="@color/colorMenu"
-            android:textSize="22sp" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            app:srcCompat="@drawable/shape" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="300dp">
 
             <ImageView
                 android:id="@+id/img_yemekResim"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                app:srcCompat="@mipmap/ic_launcher_round" />
-        </LinearLayout>
+                android:layout_height="200dp"
+                android:scaleType="centerCrop" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:paddingStart="10dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:textAlignment="center">
+            <TextView
+                android:id="@+id/txt_yemekAdi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_yemekResim"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:text="Broucher"
+                android:textColor="#262626"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_yemekAdi"
                 android:orientation="horizontal"
-                android:paddingRight="40dp">
+                android:paddingTop="10dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -91,54 +50,20 @@
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="50dp"
-                        android:layout_height="28dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
                         app:srcCompat="@drawable/kisi2" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="10dp"
-                    android:paddingRight="20dp">
 
                     <TextView
                         android:id="@+id/txt_kisiSayisi"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/arsenal"
-                        android:text="TextView"
-                        android:textColor="@color/colorMenu"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:paddingLeft="40dp">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imageView7"
-                        android:layout_width="50dp"
-                        android:layout_height="28dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/sure2" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:drawablePadding="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:textSize="12sp"
+                        android:text="xxx" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -146,26 +71,33 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="10dp"
-                    android:paddingRight="10dp"
-                    android:textAlignment="center">
+                    android:gravity="right">
+
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        app:srcCompat="@drawable/sure2" />
 
                     <TextView
                         android:id="@+id/txt_sure"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/arsenal"
-                        android:text="TextView"
-                        android:textColor="@color/colorMenu"
-                        android:textSize="12sp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:drawablePadding="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="xxx"
+                        android:textSize="12sp"/>
                 </LinearLayout>
+
+
             </LinearLayout>
 
-        </LinearLayout>
-    </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
 </LinearLayout>
