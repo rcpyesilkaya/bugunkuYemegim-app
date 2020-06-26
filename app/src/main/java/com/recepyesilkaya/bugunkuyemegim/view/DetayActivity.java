@@ -1,11 +1,14 @@
 package com.recepyesilkaya.bugunkuyemegim.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +24,7 @@ public class DetayActivity extends AppCompatActivity {
     TextView txt_sure, txt_kisi, txt_malzeme, txt_yapilis, txt_video, txt_yemekAadi;
     ImageView fotograf, img_favori;
 
-    String video, id;
+    String video, id, yemekAd, yemekAciklama, yemekTur, yemekSure, kisiSayisi, resim, malzeme;
     Boolean favori = false;
 
     public static List<String> items;
@@ -35,14 +38,14 @@ public class DetayActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
-        String yemekAd = (String) i.getSerializableExtra("yemekAd");
-        String yemekAciklama = (String) i.getSerializableExtra("yemekAciklama");
-        String yemekTur = (String) i.getSerializableExtra("yemekTur");
-        String yemekSure = (String) i.getSerializableExtra("yemekSure");
-        String kisiSayisi = (String) i.getSerializableExtra("kisiSayisi");
+        yemekAd = (String) i.getSerializableExtra("yemekAd");
+        yemekAciklama = (String) i.getSerializableExtra("yemekAciklama");
+        yemekTur = (String) i.getSerializableExtra("yemekTur");
+        yemekSure = (String) i.getSerializableExtra("yemekSure");
+        kisiSayisi = (String) i.getSerializableExtra("kisiSayisi");
         video = (String) i.getSerializableExtra("video");
-        String resim = (String) i.getSerializableExtra("resim");
-        String malzeme = (String) i.getSerializableExtra("malzeme");
+        resim = (String) i.getSerializableExtra("resim");
+        malzeme = (String) i.getSerializableExtra("malzeme");
         id = (String) i.getSerializableExtra("id");
 
 
@@ -106,7 +109,7 @@ public class DetayActivity extends AppCompatActivity {
             editor.putString("id", stringBuilder.toString());
             editor.commit();
 
-            favori=true;
+            favori = true;
 
             img_favori.setImageResource(R.drawable.ic_favorite);
         } else {
@@ -123,8 +126,33 @@ public class DetayActivity extends AppCompatActivity {
             editor.commit();
 
             img_favori.setImageResource(R.drawable.ic_no_favorite);
-            favori=false;
+            favori = false;
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_detay, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.share) {
+            String body=yemekAd+"\n \nMalzemeler : \n\n"+malzeme + "\n\nYapılış : \n\n"+yemekAciklama+"\n\nKaç Kişilik : "+kisiSayisi+"\n\nSüre : "+yemekSure;
+            shareText(String.valueOf(R.string.share_subject),body);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void shareText(String subject, String body) {
+        Intent txtIntent = new Intent(android.content.Intent.ACTION_SEND);
+        txtIntent.setType("text/plain");
+        txtIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+        txtIntent.putExtra(android.content.Intent.EXTRA_TEXT, body);
+        startActivity(Intent.createChooser(txtIntent, "Share"));
+    }
 }
