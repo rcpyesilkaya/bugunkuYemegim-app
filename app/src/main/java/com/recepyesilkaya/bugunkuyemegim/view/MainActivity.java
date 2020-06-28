@@ -40,9 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private AppBarConfiguration mAppBarConfiguration;
-
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
 
@@ -59,16 +57,15 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_anasayfa, R.id.nav_anayemek, R.id.nav_pilav,
-                R.id.nav_corba, R.id.nav_salata, R.id.nav_tatli,R.id.nav_favori)
+                R.id.nav_corba, R.id.nav_salata, R.id.nav_tatli, R.id.nav_favori)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-
     }
 
+    //Google Asistan
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -85,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    //Google Asistan da verilen cevap
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -93,18 +90,15 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-                    ArrayList<String> result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
-
+                    //Aratılan kelime ile SearchActivity e yönlendirme yapılıyor.
                     Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                     intent.putExtra("kelime", result.get(0));
                     MainActivity.this.startActivity(intent);
                 }
                 break;
             }
-
         }
     }
 
@@ -119,14 +113,12 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                    intent.putExtra("kelime", query);
-                    MainActivity.this.startActivity(intent);
-                    return false;
+                intent.putExtra("kelime", query);
+                MainActivity.this.startActivity(intent);
+                return false;
             }
 
-            //Her harf girildiğinde
             @Override
             public boolean onQueryTextChange(String newText) {
                 return true;
@@ -138,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
     //Seçilen menu item ını buluyoruz
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         int id = item.getItemId();
 
         //Mikrofona basılmışsa google asistanı çağır
@@ -146,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
             promptSpeechInput();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

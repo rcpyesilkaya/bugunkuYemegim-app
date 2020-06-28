@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -34,38 +33,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TatliFragment extends Fragment {
 
     RecyclerView recyclerView;
-
     RecyclerViewAdapter recyclerViewAdapter;
-
     CompositeDisposable compositeDisposable;
-
     ArrayList<yemekModel> yemekModels;
     private String baseURL = "https://ibrahimekinci.com/";
     Retrofit retrofit;
+    private TatliViewModel tatliViewModel;
 
-    private SendViewModel sendViewModel;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        sendViewModel =
-                ViewModelProviders.of(this).get(SendViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        tatliViewModel = ViewModelProviders.of(this).get(TatliViewModel.class);
         View root = inflater.inflate(R.layout.fragment_tatli, container, false);
-
         recyclerView = root.findViewById(R.id.rcy_Tatli);
 
-        sendViewModel.getText().observe(this, new Observer<String>() {
+        tatliViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 //Retrofit && JSON
-
                 Gson gson = new GsonBuilder().setLenient().create();
                 retrofit = new Retrofit.Builder()
                         .baseUrl(baseURL)
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
-
-                //JSON verilerini çekeceğimiz metodu çağırıyoruz
                 loadData();
             }
         });
@@ -73,29 +62,20 @@ public class TatliFragment extends Fragment {
     }
 
     private void loadData() {
-
         YemekAPI yemekAPI = retrofit.create(YemekAPI.class);
-
         compositeDisposable = new CompositeDisposable();
 
         compositeDisposable.add(yemekAPI.getData()
-                //Observable sonucu yayınlanacak olacak işlemin hangi threadde çalışması gerektiğini belirtiyoruz
                 .subscribeOn(Schedulers.io())
-                //Subsriber hangi thread’de dinlemesi gerektiğini belirtiyoruz
                 .observeOn(AndroidSchedulers.mainThread())
-                //subscribe, Observable’a bir abone, abone olduğunda gerçekleştirilecek eylemi tanımlayan bir arabirimdir.
-                //Abone olma yöntemi yalnızca bir Observer Observable’e abone olduğunda çalışır.
                 .subscribe(this::handleResponse));
     }
 
     private void handleResponse(List<yemekModel> yemekList) {
+        yemekModels = new ArrayList<>(yemekList);
 
-        yemekModels = new ArrayList<>(yemekList);//cryptoModels ArrayList'imize responList deki değerleri kaydediyoruz.
-
-
-        //kategori kontrolü yapıyoruz  ve ilgili bilgileri yemekDizi de tutuyoruz
         int urunSayisi = 0;
-        String kategori = "tatli";
+        String kategori = "tatlı";
 
         for (yemekModel s : yemekList) {
             if (kategori.equals(s.yemek_tur)) {
@@ -121,12 +101,10 @@ public class TatliFragment extends Fragment {
             }
         }
 
-
         //RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewAdapter = new RecyclerViewAdapter(yemekModels, yemekDizi);
         recyclerView.setAdapter(recyclerViewAdapter);
-
     }
 
     @Override

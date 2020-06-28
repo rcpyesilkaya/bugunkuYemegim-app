@@ -20,4 +20,5 @@
     <string name="tap_on_mic">Tap on mic to speak</string>
 
     <string name="share_subject">Bugünkü Yemeğim ?</string>
+    <string name="popup_text" >Lütfen İnternet Bağlantınızı Kontrol Ediniz.</string>
 </resources>

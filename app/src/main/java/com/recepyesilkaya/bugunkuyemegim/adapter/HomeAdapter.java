@@ -34,6 +34,7 @@ public class HomeAdapter extends PagerAdapter {
         this.context = context;
     }
 
+    //Satır sayısı
     @Override
     public int getCount() {
         return models.size();
@@ -44,25 +45,25 @@ public class HomeAdapter extends PagerAdapter {
         return view.equals(object);
     }
 
+    //layout da gösterilecek bilgilerin ataması yapılıyor
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        layoutInflater=LayoutInflater.from(context);
-        View view=layoutInflater.inflate(R.layout.item,container,false);
-
+        layoutInflater = LayoutInflater.from(context);
+        View view = layoutInflater.inflate(R.layout.item, container, false);
 
         ImageView yemekResim;
-        TextView yemekAciklama,yemekAd;
+        TextView yemekAciklama, yemekAd;
 
-        yemekResim=view.findViewById(R.id.image);
-        yemekAd=view.findViewById(R.id.title);
-        yemekAciklama=view.findViewById(R.id.desc);
-
+        yemekResim = view.findViewById(R.id.image);
+        yemekAd = view.findViewById(R.id.title);
+        yemekAciklama = view.findViewById(R.id.desc);
 
         Picasso.get().load(models.get(position).getYemek_resim()).into(yemekResim);
         yemekAd.setText(models.get(position).getYemek_adi());
-        yemekAciklama.setText(models.get(position).getYemek_aciklama().substring(0,100)+"...");
+        yemekAciklama.setText(models.get(position).getYemek_aciklama().substring(0, 100) + "...");
 
+        //Resime basıldığında detay sayfasına ilgili ürünün bilgileri gönderiliyor
         yemekResim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,13 +83,13 @@ public class HomeAdapter extends PagerAdapter {
             }
         });
 
-        container.addView(view,0);
+        container.addView(view, 0);
 
         return view;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View)object);
+        container.removeView((View) object);
     }
 }

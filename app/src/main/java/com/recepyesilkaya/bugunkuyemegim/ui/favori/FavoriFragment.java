@@ -35,39 +35,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class FavoriFragment extends Fragment {
 
     private FavoriViewModel favoriViewModel;
-
     RecyclerView recyclerView;
-
     RecyclerViewAdapter recyclerViewAdapter;
-
     CompositeDisposable compositeDisposable;
-
     ArrayList<yemekModel> yemekModels;
     private String baseURL = "https://ibrahimekinci.com/";
     Retrofit retrofit;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        favoriViewModel =
-                ViewModelProviders.of(this).get(FavoriViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        favoriViewModel = ViewModelProviders.of(this).get(FavoriViewModel.class);
         View root = inflater.inflate(R.layout.fragment_favori, container, false);
-
         recyclerView = root.findViewById(R.id.rcy_Favori);
 
         favoriViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-
                 //Retrofit && JSON
-
                 Gson gson = new GsonBuilder().setLenient().create();
                 retrofit = new Retrofit.Builder()
                         .baseUrl(baseURL)
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
-
-                //JSON verilerini çekeceğimiz metodu çağırıyoruz
                 loadData();
             }
         });
@@ -75,24 +64,16 @@ public class FavoriFragment extends Fragment {
     }
 
     private void loadData() {
-
         YemekAPI yemekAPI = retrofit.create(YemekAPI.class);
-
         compositeDisposable = new CompositeDisposable();
-
         compositeDisposable.add(yemekAPI.getData()
-                //Observable sonucu yayınlanacak olacak işlemin hangi threadde çalışması gerektiğini belirtiyoruz
                 .subscribeOn(Schedulers.io())
-                //Subsriber hangi thread’de dinlemesi gerektiğini belirtiyoruz
                 .observeOn(AndroidSchedulers.mainThread())
-                //subscribe, Observable’a bir abone, abone olduğunda gerçekleştirilecek eylemi tanımlayan bir arabirimdir.
-                //Abone olma yöntemi yalnızca bir Observer Observable’e abone olduğunda çalışır.
                 .subscribe(this::handleResponse));
     }
 
     private void handleResponse(List<yemekModel> yemekList) {
-
-        yemekModels = new ArrayList<>(yemekList);//cryptoModels ArrayList'imize responList deki değerleri kaydediyoruz.
+        yemekModels = new ArrayList<>(yemekList);
 
         //sharedPreferences da favorilere eklenen yemekleri çekip favori kontrolünü sağlıyoruz
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("pref", 0);
@@ -100,11 +81,10 @@ public class FavoriFragment extends Fragment {
         String[] itemsWords = idsString.split(",");
         List<String> items = new ArrayList<>();
 
+        //SharedPreferences daki id ler items listesine ekleniyor
         for (int i = 0; i < itemsWords.length; i++) {
             items.add(itemsWords[i]);
         }
-
-        //kategori kontrolü yapıyoruz  ve ilgili bilgileri yemekDizi de tutuyoruz
         int urunSayisi = 0;
 
         //tüm yemekler favori kontorlünden geçirilip dizi boyutu belirleniyor
@@ -115,10 +95,9 @@ public class FavoriFragment extends Fragment {
                 }
             }
         }
-
         String[][] yemekDizi = new String[urunSayisi--][9];
 
-        //favoride olan ürünler dizi de tutuluyor böylelikle listelenecek yemek bilgilerini tutuyoruz.
+        //favoride olan ürünler dizi de tutuluyor ve recyclerViewAdapter ile gönderiliyor
         int sira = 0;
         for (yemekModel s : yemekList) {
             for (int i = 0; i < items.size(); i++) {
@@ -141,7 +120,6 @@ public class FavoriFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewAdapter = new RecyclerViewAdapter(yemekModels, yemekDizi);
         recyclerView.setAdapter(recyclerViewAdapter);
-
     }
 
     @Override

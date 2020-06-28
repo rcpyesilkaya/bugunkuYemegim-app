@@ -42,20 +42,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-
     RecyclerViewAdapter recyclerViewAdapter;
-
     CompositeDisposable compositeDisposable;
-
     TextView txt_sonuc;
     LinearLayout linearLayout;
-
     ArrayList<yemekModel> yemekModels;
     private String baseURL = "https://ibrahimekinci.com/";
     Retrofit retrofit;
-
     String kelime;
-
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     @Override
@@ -69,56 +63,40 @@ public class SearchActivity extends AppCompatActivity {
         txt_sonuc = findViewById(R.id.txt_sonuc);
         linearLayout = findViewById(R.id.lyt_txt);
 
-
         Intent i = getIntent();
         kelime = (String) i.getSerializableExtra("kelime");
         getir();
-
-
     }
 
     public void getir() {
-
         //Retrofit && JSON
-
         Gson gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-
-        //JSON verilerini çekeceğimiz metodu çağırıyoruz
         loadData();
     }
 
     private void loadData() {
-
         YemekAPI yemekAPI = retrofit.create(YemekAPI.class);
-
         compositeDisposable = new CompositeDisposable();
 
         compositeDisposable.add(yemekAPI.getData()
-                //Observable sonucu yayınlanacak olacak işlemin hangi threadde çalışması gerektiğini belirtiyoruz
                 .subscribeOn(Schedulers.io())
-                //Subsriber hangi thread’de dinlemesi gerektiğini belirtiyoruz
                 .observeOn(AndroidSchedulers.mainThread())
-                //subscribe, Observable’a bir abone, abone olduğunda gerçekleştirilecek eylemi tanımlayan bir arabirimdir.
-                //Abone olma yöntemi yalnızca bir Observer Observable’e abone olduğunda çalışır.
                 .subscribe(this::handleResponse));
     }
 
     private void handleResponse(List<yemekModel> yemekList) {
+        yemekModels = new ArrayList<>(yemekList);
 
-        yemekModels = new ArrayList<>(yemekList);//cryptoModels ArrayList'imize responList deki değerleri kaydediyoruz.
-
-
-        //kategori kontrolü yapıyoruz  ve ilgili bilgileri yemekDizi de tutuyoruz
         int urunSayisi = 0;
 
-        System.out.println("kelime : "+ kelime.toLowerCase());
+        //Aratılan kelime nin sağladığı şartlar bulunuyor.
         for (yemekModel s : yemekList) {
-            if (s.yemek_adi.toLowerCase().indexOf(kelime.toLowerCase())!=-1|| kelime.toLowerCase().contains(s.yemek_tur.toLowerCase())) {
+            if (s.yemek_adi.toLowerCase().indexOf(kelime.toLowerCase()) != -1 || kelime.toLowerCase().contains(s.yemek_tur.toLowerCase())) {
                 urunSayisi++;
             }
         }
@@ -130,17 +108,13 @@ public class SearchActivity extends AppCompatActivity {
         } else {
             txt_sonuc.setText(kelime.toUpperCase() + " arama sonuçları");
             txt_sonuc.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-
-
         }
         String[][] yemekDizi = new String[urunSayisi--][9];
-
 
         //Kullanıcının arama işleminde önceliği yemek adına verdik,daha sonra kategoriye göre arama işlemi gerçekleştiriliyor
         int sira = 0;
         for (yemekModel s : yemekList) {
-            if (s.yemek_adi.toLowerCase().indexOf(kelime.toLowerCase())!=-1) {
-
+            if (s.yemek_adi.toLowerCase().indexOf(kelime.toLowerCase()) != -1) {
                 yemekDizi[sira][0] = s.getYemek_id();
                 yemekDizi[sira][1] = s.getYemek_adi();
                 yemekDizi[sira][2] = s.getYemek_aciklama();
@@ -158,9 +132,7 @@ public class SearchActivity extends AppCompatActivity {
         boolean ayniYemek = false;
         for (yemekModel k : yemekList) {
             if (kelime.contains(k.yemek_tur.toLowerCase())) {
-
                 for (int i = 0; i < sira; i++) {
-
                     if (yemekDizi[i][0] == k.getYemek_id()) {
                         ayniYemek = true;
                     }
@@ -181,7 +153,6 @@ public class SearchActivity extends AppCompatActivity {
             ayniYemek = false;
         }
 
-
         //RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
         recyclerViewAdapter = new RecyclerViewAdapter(yemekModels, yemekDizi);
@@ -197,7 +168,6 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
         MenuItem menuItem = menu.findItem(R.id.search);
@@ -207,26 +177,21 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 kelime = query;
                 getir();
                 return false;
             }
 
-            //Her harf girildiğinde
             @Override
             public boolean onQueryTextChange(String newText) {
                 return true;
             }
         });
-
         return true;
     }
 
-    //Seçilen menu item ını buluyoruz
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         int id = item.getItemId();
 
         //Mikrofona basılmışsa google asistanı çağır
@@ -263,17 +228,12 @@ public class SearchActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
-
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
                     kelime = result.get(0);
                     getir();
-
                 }
                 break;
             }
-
         }
     }
-
 }

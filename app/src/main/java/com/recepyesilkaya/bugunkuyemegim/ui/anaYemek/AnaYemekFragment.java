@@ -42,23 +42,20 @@ public class AnaYemekFragment extends Fragment {
     private String baseURL = "https://ibrahimekinci.com/";
     Retrofit retrofit;
 
-    private GalleryViewModel galleryViewModel;
+    private AnaYemekViewModel anaYemekViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
+        anaYemekViewModel = ViewModelProviders.of(this).get(AnaYemekViewModel.class);
         View root = inflater.inflate(R.layout.fragment_anayemek, container, false);
 
         recyclerView = root.findViewById(R.id.rcy_AnaYemek);
 
-        galleryViewModel.getText().observe(this, new Observer<String>() {
+        anaYemekViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
 
                 //Retrofit && JSON
-
                 Gson gson = new GsonBuilder().setLenient().create();
                 retrofit = new Retrofit.Builder()
                         .baseUrl(baseURL)
@@ -68,18 +65,15 @@ public class AnaYemekFragment extends Fragment {
 
                 //JSON verilerini çekeceğimiz metodu çağırıyoruz
                 loadData();
-
             }
         });
         return root;
     }
 
+    //RxJava ile json bilgilerimizi yüklüyoruz tüm bilgiyi hepsini değil parça parça çekiliyor
     private void loadData() {
-
         YemekAPI yemekAPI = retrofit.create(YemekAPI.class);
-
         compositeDisposable = new CompositeDisposable();
-
         compositeDisposable.add(yemekAPI.getData()
                 //Observable sonucu yayınlanacak olacak işlemin hangi threadde çalışması gerektiğini belirtiyoruz
                 .subscribeOn(Schedulers.io())
@@ -90,16 +84,15 @@ public class AnaYemekFragment extends Fragment {
                 .subscribe(this::handleResponse));
     }
 
-
     private void handleResponse(List<yemekModel> yemekList) {
 
         yemekModels = new ArrayList<>(yemekList);//cryptoModels ArrayList'imize responList deki değerleri kaydediyoruz.
-
 
         //kategori kontrolü yapıyoruz  ve ilgili bilgileri yemekDizi de tutuyoruz
         int urunSayisi = 0;
         String kategori = "anaYemek";
 
+        //Yemek sayısı belirlenip dizi boyutu ayarlanıyor
         for (yemekModel s : yemekList) {
             if (kategori.equals(s.yemek_tur)) {
                 urunSayisi++;
@@ -124,12 +117,10 @@ public class AnaYemekFragment extends Fragment {
             }
         }
 
-
-        //RecyclerView
+        //RecyclerView, Dizi ve ArrayList gönderiliyor
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewAdapter = new RecyclerViewAdapter(yemekModels, yemekDizi);
         recyclerView.setAdapter(recyclerViewAdapter);
-
     }
 
     @Override

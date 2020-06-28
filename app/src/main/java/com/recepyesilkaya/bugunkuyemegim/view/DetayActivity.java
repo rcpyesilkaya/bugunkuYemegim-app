@@ -23,12 +23,9 @@ public class DetayActivity extends AppCompatActivity {
 
     TextView txt_sure, txt_kisi, txt_malzeme, txt_yapilis, txt_video, txt_yemekAadi;
     ImageView fotograf, img_favori;
-
     String video, id, yemekAd, yemekAciklama, yemekTur, yemekSure, kisiSayisi, resim, malzeme;
     Boolean favori = false;
-
     public static List<String> items;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +34,7 @@ public class DetayActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //PutExtra ile gelen bilgiler değişkenlere aktarılıyor
         Intent i = getIntent();
         yemekAd = (String) i.getSerializableExtra("yemekAd");
         yemekAciklama = (String) i.getSerializableExtra("yemekAciklama");
@@ -47,7 +45,6 @@ public class DetayActivity extends AppCompatActivity {
         resim = (String) i.getSerializableExtra("resim");
         malzeme = (String) i.getSerializableExtra("malzeme");
         id = (String) i.getSerializableExtra("id");
-
 
         txt_sure = findViewById(R.id.txt_sure);
         txt_kisi = findViewById(R.id.txt_kisiSayisi);
@@ -73,9 +70,12 @@ public class DetayActivity extends AppCompatActivity {
         String[] itemsWords = idsString.split(",");
         items = new ArrayList<>();
 
+        //favori id ler items listesine ekleniyor
         for (int k = 0; k < itemsWords.length; k++) {
             items.add(itemsWords[k]);
         }
+
+        //İlgili ürünün favori kontrolü yapılıyor
         for (int j = 0; j < items.size(); j++) {
             if (items.get(j).equals(id)) {
                 img_favori.setImageResource(R.drawable.ic_favorite);
@@ -85,16 +85,16 @@ public class DetayActivity extends AppCompatActivity {
         if (!favori) {
             img_favori.setImageResource(R.drawable.ic_no_favorite);
         }
-
     }
 
+    //Video string basılınca ilgili yemek video linki açılıyor.
     public void video_link(View view) {
         Uri linkimiz = Uri.parse(video); //butona vermek istediğimiz linki buraya yazıyoruz.
         Intent intentimiz = new Intent(Intent.ACTION_VIEW, linkimiz);
         startActivity(intentimiz);
-
     }
 
+    //img_favori basılınca favori ekleme veye silme işlemi yapılıp resim set ediliyor.
     public void fovoriEkle(View view) {
         if (!favori) {
             items.add(id);
@@ -110,7 +110,6 @@ public class DetayActivity extends AppCompatActivity {
             editor.commit();
 
             favori = true;
-
             img_favori.setImageResource(R.drawable.ic_favorite);
         } else {
             items.remove(id);
@@ -139,10 +138,10 @@ public class DetayActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
+        //Share butonuna basılınca ilgili tanımlamalar paylaşılıyor.
         if (id == R.id.share) {
-            String body=yemekAd+"\n \nMalzemeler : \n\n"+malzeme + "\n\nYapılış : \n\n"+yemekAciklama+"\n\nKaç Kişilik : "+kisiSayisi+"\n\nSüre : "+yemekSure;
-            shareText(String.valueOf(R.string.share_subject),body);
+            String body = yemekAd + "\n \nMalzemeler : \n\n" + malzeme + "\n\nYapılış : \n\n" + yemekAciklama + "\n\nKaç Kişilik : " + kisiSayisi + "\n\nSüre : " + yemekSure + "\n \nVideo : \n" + video;
+            shareText(String.valueOf(R.string.share_subject), body);
             return true;
         }
         return super.onOptionsItemSelected(item);

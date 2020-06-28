@@ -42,82 +42,61 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-
     ViewPager viewPager;
     HomeAdapter adapter;
     List<yemekModel> models;
     Integer[] colors = null;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
-
     Button btn_yemegimiBul;
     CompositeDisposable compositeDisposable;
     private String baseURL = "https://ibrahimekinci.com/";
     Retrofit retrofit;
-
     String id, ad, aciklama, tur, pisirmeSuresi, kisiSayisi, video, resim, malzeme;
 
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         viewPager = root.findViewById(R.id.viewPager);
         btn_yemegimiBul = root.findViewById(R.id.btn_yemegimiBul);
+
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-
                 //Retrofit && JSON
-
                 Gson gson = new GsonBuilder().setLenient().create();
                 retrofit = new Retrofit.Builder()
                         .baseUrl(baseURL)
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
-
-                //JSON verilerini çekeceğimiz metodu çağırıyoruz
                 loadData();
-                //Retrofit && JSON
-
-
             }
         });
 
+        //Bugünkü yemeğimi? butonuna basılınca random yemek üretiliyor.
         btn_yemegimiBul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 loadData();
-                //Retrofit && JSON
             }
         });
         return root;
     }
 
-
     private void loadData() {
-
         YemekAPI yemekAPI = retrofit.create(YemekAPI.class);
-
         compositeDisposable = new CompositeDisposable();
-
         compositeDisposable.add(yemekAPI.getData()
-                //Observable sonucu yayınlanacak olacak işlemin hangi threadde çalışması gerektiğini belirtiyoruz
                 .subscribeOn(Schedulers.io())
-                //Subsriber hangi thread’de dinlemesi gerektiğini belirtiyoruz
                 .observeOn(AndroidSchedulers.mainThread())
-                //subscribe, Observable’a bir abone, abone olduğunda gerçekleştirilecek eylemi tanımlayan bir arabirimdir.
-                //Abone olma yöntemi yalnızca bir Observer Observable’e abone olduğunda çalışır.
                 .subscribe(this::handleResponse));
     }
 
     private void handleResponse(List<yemekModel> yemekList) {
+        models = new ArrayList<>();
 
-        models = new ArrayList<>();//cryptoModels ArrayList'imize responList deki değerleri kaydediyoruz.
-
-        randomFood(yemekList, "corba");
+        //tüm kategoriler için random yemek bulunup models listesinde tutuluyor.
+        randomFood(yemekList, "çorba");
         models.add(new yemekModel(id, ad, aciklama, tur, pisirmeSuresi, kisiSayisi, video, resim, malzeme));
         randomFood(yemekList, "anaYemek");
         models.add(new yemekModel(id, ad, aciklama, tur, pisirmeSuresi, kisiSayisi, video, resim, malzeme));
@@ -125,10 +104,10 @@ public class HomeFragment extends Fragment {
         models.add(new yemekModel(id, ad, aciklama, tur, pisirmeSuresi, kisiSayisi, video, resim, malzeme));
         randomFood(yemekList, "salata");
         models.add(new yemekModel(id, ad, aciklama, tur, pisirmeSuresi, kisiSayisi, video, resim, malzeme));
-        randomFood(yemekList, "tatli");
+        randomFood(yemekList, "tatlı");
         models.add(new yemekModel(id, ad, aciklama, tur, pisirmeSuresi, kisiSayisi, video, resim, malzeme));
 
-        //adapter a ilgili model i ve context i tanımlıyoruz
+        //adapter a ilgili model ve context tanımlaması yapılıyor
         adapter = new HomeAdapter(models, getContext());
 
         //----------VIEW PAGER
@@ -163,7 +142,6 @@ public class HomeFragment extends Fragment {
                 } else {
                     viewPager.setBackgroundColor(colors[colors.length - 1]);
                 }
-
             }
 
             @Override
@@ -176,13 +154,11 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
-        //----------VIEW PAGER
     }
 
+    //Kategori ye göre random yemek bulunuyor.
     public void randomFood(List<yemekModel> yemekModels1, String kategori) {
-
-        //dizi boyutunu belirlemek için belirtilen kategoriden kaç adet yemek olduğunu bulmamız lazım
+        //dizi boyutunu belirlemek için belirtilen kategoriden kaç adet yemek olduğu bulunuyor.
         int urunSayisi = 0;
         for (yemekModel s : yemekModels1) {
             if (kategori.equals(s.yemek_tur)) {
@@ -205,7 +181,7 @@ public class HomeFragment extends Fragment {
         lower = Integer.parseInt(yemekDizisi[urunSayisi--]);
         int r = (int) (Math.random() * (upper - lower)) + lower;
 
-        //random id li yemek bilgileri randomFoods dizisine aktarıldı.
+        //random id li yemek bilgilerini randomFoods dizisine aktarıyoruz.
         for (yemekModel s : yemekModels1) {
             if (r == Integer.parseInt(s.yemek_id)) {
                 id = s.getYemek_id();
@@ -217,10 +193,8 @@ public class HomeFragment extends Fragment {
                 video = s.getYemek_video();
                 resim = s.getYemek_resim();
                 malzeme = s.getYemek_malzeme();
-
             }
         }
-
     }
 
     @Override

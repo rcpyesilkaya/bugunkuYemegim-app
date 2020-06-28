@@ -27,8 +27,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<yemekModel> yemekList;
     private String[][] yemekDizi;
-    int diziSira = 0;
-
 
     public RecyclerViewAdapter(ArrayList<yemekModel> yemekList, String[][] yemekDizi) {
         this.yemekList = yemekList;
@@ -39,18 +37,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public RowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-
         View view = layoutInflater.inflate(R.layout.row_layout, parent, false);
         return new RowHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RowHolder holder, int position) {
-
-
-        holder.bind(yemekList.get(position), position,holder);
-
-
+        holder.bind(yemekList.get(position), position, holder);
     }
 
     @Override
@@ -59,24 +52,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class RowHolder extends RecyclerView.ViewHolder {
-
         TextView txt_yemekad, txt_sure, txt_kisiSayisi;
         ImageView img_yemekResim;
 
         public RowHolder(@NonNull View itemView) {
             super(itemView);
-
         }
 
-
-
-        public void bind(yemekModel yemek_Model, Integer position,RowHolder holder) {
-
-
-            System.out.println(yemek_Model.getYemek_resim());
-            //cryptoModel daki değerleri gösteriyoruz
-
-
+        public void bind(yemekModel yemek_Model, Integer position, RowHolder holder) {
             //Text leri Layout daki id ler ile eşleştiriyoruz
             txt_yemekad = itemView.findViewById(R.id.txt_yemekAdi);
             txt_sure = itemView.findViewById(R.id.txt_sure);
@@ -85,13 +68,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
             //gezinme sırasında sürekli aktif olduğundan modunu aldık
-            txt_yemekad.setText(yemekDizi[diziSira%yemekDizi.length][1]);
-            txt_sure.setText(yemekDizi[diziSira%yemekDizi.length][4]);
-            txt_kisiSayisi.setText(yemekDizi[diziSira%yemekDizi.length][5]);
-            Picasso.get().load(yemekDizi[diziSira%yemekDizi.length][7]).into(img_yemekResim);
+            txt_yemekad.setText(yemekDizi[position % yemekDizi.length][1]);
+            txt_sure.setText(yemekDizi[position % yemekDizi.length][4]);
+            txt_kisiSayisi.setText(yemekDizi[position % yemekDizi.length][5]);
+            Picasso.get().load(yemekDizi[position % yemekDizi.length][7]).into(img_yemekResim);
 
-
-            diziSira++;
 
             img_yemekResim.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,13 +92,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     holder.itemView.getContext().startActivity(intent);
                 }
             });
-
-
-
         }
-
-
     }
-
-
 }
