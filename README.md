@@ -1,5 +1,3 @@
-# Content #
-
 # About Projects #
 
 ### Screenshots ###
