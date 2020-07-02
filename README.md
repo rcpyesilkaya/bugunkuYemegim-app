@@ -1,7 +1,7 @@
 # About Projects #
 
 ### Screenshots ###
-<img src="app/src/main/res/drawable/Screenshot_20200629-190829.jpg" width="200" height="400" padding="5"/>      <img src="app/src/main/res/drawable/Screenshot_20200629-190856.jpg" width="200" height="400"/>      <img src="app/src/main/res/drawable/Screenshot_20200629-190904.jpg" width="200" height="400"/>      <img src="app/src/main/res/drawable/Screenshot_20200629-190934.jpg" width="200" height="400"/>      <img src="app/src/main/res/drawable/Screenshot_20200629-190951.jpg" width="200" height="400"/>   <img src="app/src/main/res/drawable/Screenshot_20200629-191047.jpg" width="200" height="400"/>   <img src="app/src/main/res/drawable/Screenshot_20200629-191242.jpg" width="200" height="400"/>
+<img src="app/src/main/res/drawable/ss1.jpg" width="200" height="400" padding="5"/>      <img src="app/src/main/res/drawable/ss2.jpg" width="200" height="400"/>      <img src="app/src/main/res/drawable/ss3.jpg" width="200" height="400"/>      <img src="app/src/main/res/drawable/ss4.jpg" width="200" height="400"/>      <img src="app/src/main/res/drawable/ss5.jpg" width="200" height="400"/>   <img src="app/src/main/res/drawable/ss6.jpg" width="200" height="400"/>   <img src="app/src/main/res/drawable/ss7.jpg" width="200" height="400"/>
 
 
 ### Abstract ###
