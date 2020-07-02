@@ -6,10 +6,10 @@
     <color name="colorYellow">#FFF700</color>
     <color name="colorLightYellow">#CFD015</color>
     <color name="colorMenu">#292929</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="color1">#424549</color>
-    <color name="color2">#7e455e</color>
-    <color name="color3">#796e25</color>
-    <color name="color4">#59717c</color>
-    <color name="color5">#4b5320</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="color1">#ffffdf</color>
+    <color name="color2">#ffffbf</color>
+    <color name="color3">#ffff9e</color>
+    <color name="color4">#ffff7a</color>
+    <color name="color5">#ffff52</color>
 </resources>

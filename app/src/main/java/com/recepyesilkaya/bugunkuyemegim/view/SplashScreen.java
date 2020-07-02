@@ -37,6 +37,7 @@ public class SplashScreen extends AppCompatActivity {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.animation_logo);
         img_logo.startAnimation(animation);
 
+
         //Geçiş
         new Handler().postDelayed(new Runnable() {
             @Override

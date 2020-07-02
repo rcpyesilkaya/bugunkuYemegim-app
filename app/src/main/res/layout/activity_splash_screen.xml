@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightYellow"
+    android:background="@color/colorWhite"
     tools:context=".view.SplashScreen">
 
     <ImageView
         android:id="@+id/img_logo"
-        android:layout_width="800px"
-        android:layout_height="800px"
-        android:layout_marginTop="128dp"
+        android:layout_width="391dp"
+        android:layout_height="547dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bugunku_yemegim_logo" />
+        app:srcCompat="@drawable/bugunkuyemegim_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
